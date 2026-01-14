@@ -1,0 +1,19 @@
+﻿@model User
+
+@if (ViewBag.LoginError != null)
+{
+	<span class="text-danger" field-validation-error>
+	    @ViewBag.LoginError	
+	</span>
+}
+
+<form asp-controller="Account" asp-action="CheckUser" method="post">
+	<input asp-for="Email" placeholder="enter your enail"  type="email" /> 
+	<br />
+	<input asp-for="Password" placeholder="enter your Password"  type="password" /> 
+	<br />
+	<button type="submit">Login</button>
+
+
+
+</form>

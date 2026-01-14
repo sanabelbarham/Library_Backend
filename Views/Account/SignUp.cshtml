@@ -1,0 +1,13 @@
+﻿@model User
+<form asp-controller="Account" asp-action="AddUser" method="post">
+	<input asp-for="FullName" placeholder="enter your name" type="text" />
+	<br />
+	<input asp-for="Email" placeholder="enter your email" type="email" />
+	<br />
+	<input asp-for="Password" placeholder="enter your Password" type="password" />
+	<br />
+	<button type="submit">SignUp</button>
+
+
+
+</form>
