@@ -2,10 +2,12 @@
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Library.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,6 +39,25 @@ namespace Library.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.UserId);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Books",
+                columns: new[] { "BookId", "Author", "Title" },
+                values: new object[,]
+                {
+                    { 1, "F. Scott Fitzgerald", "The Great Gatsby" },
+                    { 2, "Ernest Hemingway", "The Sun Also Rises" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "UserId", "Email", "FullName", "Password" },
+                values: new object[,]
+                {
+                    { 1, "s.ayasa@gmail.com", "shahd", "123" },
+                    { 2, "s.barham@gmail.com", "Sanabel", "456" },
+                    { 3, "r.kmail@gmail.com", "ranin", "789" }
                 });
         }
 
