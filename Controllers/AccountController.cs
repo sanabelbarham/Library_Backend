@@ -1,15 +1,15 @@
-﻿using Library.Data;
-using Library.Models;
+﻿using Library.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Library.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly LibraryContext _context;
 
-        public AccountController(ApplicationDbContext context)
+        public AccountController(LibraryContext context)
         {
             _context = context;
         }
@@ -20,55 +20,33 @@ namespace Library.Controllers
             return View();
         }
 
-
         [HttpPost]
         public IActionResult CheckUser(User user)
         {
-            List<User> users = _context.Users.ToList();
-            foreach (var u in users)
+            var u = _context.Users.FirstOrDefault(x => x.Email == user.Email && x.Password == user.Password);
+            if (u != null)
             {
-                if (user.Email == u.Email)
-                {
-                    if (user.Password == u.Password)
-                    {
-                        HttpContext.Session.SetInt32("UserId", u.UserId);//here i saved the id for the user 
-                        //who loged in 
-
-                        return RedirectToAction("Index","Book");
-                    }
-                }   
+                HttpContext.Session.SetInt32("UserId", u.UserId);
+                return RedirectToAction("Index", "Book");
             }
-            return RedirectToAction("Login","Account", new { error = "Invalid email or password." });
+
+            return RedirectToAction("Login", new { error = "Invalid email or password." });
         }
 
-        public IActionResult SignUp()
-        {
-            return View();
-        }
+        public IActionResult SignUp() => View();
 
         [HttpPost]
         public IActionResult AddUser(User user)
         {
-            User AddedUser = new User()
-            {
-                FullName = user.FullName,
-                Email = user.Email,
-                Password = user.Password
-            };
-
-            _context.Users.Add(AddedUser);
+            _context.Users.Add(user);
             _context.SaveChanges();
-
             return RedirectToAction("Login");
         }
 
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("UserId");
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Login");
         }
-
-
-
     }
 }

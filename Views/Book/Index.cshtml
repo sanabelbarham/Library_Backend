@@ -1,7 +1,47 @@
-﻿<h1>Book Page</h1>
+﻿@using Library.Models
+@model List<Book>
 
-<p>Welcome, you are logged in.</p>
+<h2>Books List</h2>
 
-<a class="btn btn-primary" asp-controller="Account" asp-action="Logout"> Logout </a>
+<!-- Search by Title -->
+<form method="get" asp-controller="Book" asp-action="Search" style="margin-bottom:10px;">
+    Search by Title:
+    <input type="text" name="searchKey" />
+    <button type="submit">Search</button>
+</form>
 
+<!-- Search by Author -->
+<form method="get" asp-controller="Book" asp-action="SearchByAuthor" style="margin-bottom:20px;">
+    Search by Author:
+    <input type="text" name="authorName" />
+    <button type="submit">Search</button>
+</form>
 
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var b in Model)
+            {
+                <tr>
+                    <td>@b.BookId</td>
+                    <td>@b.Title</td>
+                    <td>@b.Author</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3">No books found</td>
+            </tr>
+        }
+    </tbody>
+</table>

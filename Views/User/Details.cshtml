@@ -1,0 +1,35 @@
+﻿
+@using Library.Models
+@model User
+
+@{
+    ViewData["Title"] = "User Details";
+}
+
+<h2>User Details</h2>
+
+@if (Model != null)
+{
+    <table class="table table-bordered">
+        <tr>
+            <th>User ID</th>
+            <td>@Model.UserId</td>
+        </tr>
+        <tr>
+            <th>Full Name</th>
+            <td>@Model.FullName</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>@Model.Email</td>
+        </tr>
+    </table>
+
+    <a asp-controller="User" asp-action="ChangePassword" class="btn btn-primary">
+        Change Password
+    </a>
+}
+else
+{
+    <p>No user data found.</p>
+}
