@@ -1,7 +1,14 @@
 ﻿@using Library.Models
 @model List<Book>
 
+<div style="text-align: left; margin-bottom: 20px;">
+    <a class="btn btn-primary" asp-controller="User" asp-action="Index">
+        My Account
+    </a>
+</div>
+
 <h2>Books List</h2>
+
 
 <!-- Search by Title -->
 <form method="get" asp-controller="Book" asp-action="Search" style="margin-bottom:10px;">

@@ -441,3 +441,4 @@ C:\Users\hp\Desktop\Library_Backend\obj\Debug\net9.0\refint\Library.dll
 C:\Users\hp\Desktop\Library_Backend\obj\Debug\net9.0\Library.pdb
 C:\Users\hp\Desktop\Library_Backend\obj\Debug\net9.0\Library.genruntimeconfig.cache
 C:\Users\hp\Desktop\Library_Backend\obj\Debug\net9.0\ref\Library.dll
+C:\Users\User\OneDrive\Desktop\Library\Library\obj\Debug\net9.0\Library.sourcelink.json

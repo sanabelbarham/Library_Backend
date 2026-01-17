@@ -14,7 +14,7 @@ namespace Library.Controllers
             if (userId == null) return RedirectToAction("Login", "Account");
 
             var user = _context.Users.Find(userId);
-            return View(user); 
+            return View("Index",User); 
         }
 
         public IActionResult Details()
@@ -26,11 +26,11 @@ namespace Library.Controllers
             return View(user);
         }
 
-        public IActionResult ChangePassword()
+        public IActionResult ChangeUserPassword()
         {
             if (HttpContext.Session.GetInt32("UserId") == null)
                 return RedirectToAction("Login", "Account");
-            return View();
+            return View( "ChangeUserPassword", User);
         }
 
         [HttpPost]
@@ -42,19 +42,24 @@ namespace Library.Controllers
             if (user.Password != currentPassword)
             {
                 ViewBag.Error = "Current password is incorrect.";
-                return View();
+                return View("ChangeUserPassword",User);
             }
 
             if (newPassword != confirmPassword)
             {
                 ViewBag.Error = "New password and confirmation do not match.";
-                return View();
+                return View("ChangeUserPassword", User);
             }
 
             user.Password = newPassword;
             _context.SaveChanges();
             ViewBag.Message = "Password changed successfully!";
-            return View();
+
+            //login out 
+            HttpContext.Session.Clear();
+            //return to the login view
+
+            return RedirectToAction("Login","Account");
         }
     }
 }

@@ -29,32 +29,20 @@ namespace Library.Controllers
             var u = _context.Users.FirstOrDefault(x => x.Email == user.Email && x.Password == user.Password);
             if (u != null)
             {
-<<<<<<< Updated upstream
                 HttpContext.Session.SetInt32("UserId", u.UserId);
                 return RedirectToAction("Index", "Book");
             }
 
             return RedirectToAction("Login", new { error = "Invalid email or password." });
-=======
-                if (user.Email == u.Email)
-                {
-                    if (user.Password == u.Password)
-                    {
-                        //if the user logied in then take his id from the DB and make a seesion with it
-                        //and then go to the Index in side the Book controller
-                        HttpContext.Session.SetInt32("UserId", u.UserId);//here i saved the id for the user 
-                        //who loged in 
 
-                        return RedirectToAction("Index","Book");
-                    }
-                }   
-            }
-            //to senf the error to the Login action in the Login view the message wil be displayed
-            return RedirectToAction("Login","Account", new { error = "Invalid email or password." });
->>>>>>> Stashed changes
+          
         }
 
-        public IActionResult SignUp() => View();
+        public IActionResult SignUp()
+        { 
+            return View();
+        }
+
 
         [HttpPost]
         public IActionResult AddUser(User user)
