@@ -41,6 +41,6 @@ using (var scope = app.Services.CreateScope())
 // Routes
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Book}/{action=Index}/{id?}");
+    pattern: "{controller=Account}/{action=SignUp}/{id?}");
 
 app.Run();
