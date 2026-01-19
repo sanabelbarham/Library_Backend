@@ -1,19 +1,106 @@
-﻿@model User
-
-@if (ViewBag.LoginError != null)
-{
-	<span class="text-danger" field-validation-error>
-	    @ViewBag.LoginError	
-	</span>
+@model User
+@{
+    ViewData["Title"] = "Login";
 }
 
-<form asp-controller="Account" asp-action="CheckUser" method="post">
-	<input asp-for="Email" placeholder="enter your email"  type="email" /> 
-	<br />
-	<input asp-for="Password" placeholder="enter your Password"  type="password" /> 
-	<br />
-	<button type="submit">Login</button>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold">Login</h2>
+                        <p class="text-muted">Enter your credentials to continue</p>
+                    </div>
 
+                    @if (ViewBag.LoginError != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            @ViewBag.LoginError
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
 
+                    <form asp-controller="Account" asp-action="CheckUser" method="post">
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">Email Address</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-envelope"></i>
+                                </span>
+                                <input asp-for="Email" 
+                                       class="form-control" 
+                                       placeholder="Enter your email" 
+                                       type="email" 
+                                       required />
+                            </div>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
 
-</form>
+                        <div class="mb-4">
+                            <label asp-for="Password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-lock"></i>
+                                </span>
+                                <input asp-for="Password" 
+                                       class="form-control" 
+                                       placeholder="Enter your password" 
+                                       type="password" 
+                                       required />
+                            </div>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>
+                                Login
+                            </button>
+                        </div>
+
+                        <div class="text-center">
+                            <p class="text-muted mb-0">
+                                Don't have an account? 
+                                <a asp-controller="Account" asp-action="SignUp" class="text-decoration-none fw-bold">
+                                    Sign Up
+                                </a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border-radius: 15px;
+    }
+    
+    .input-group-text {
+        background-color: #f8f9fa;
+        border-right: none;
+    }
+    
+    .form-control {
+        border-left: none;
+    }
+    
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #ced4da;
+    }
+    
+    .btn-lg {
+        padding: 12px;
+        font-size: 1.1rem;
+        border-radius: 8px;
+    }
+</style>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
