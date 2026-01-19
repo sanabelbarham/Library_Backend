@@ -1,11 +1,138 @@
-﻿<div style="text-align: left; margin-bottom: 20px;">
-    <a class="btn btn-primary" asp-controller="User" asp-action="Details">
-       Details
-    </a>
+@{
+    ViewData["Title"] = "My Account";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <div class="text-center mb-5">
+                        <div class="icon-wrapper mb-3">
+                            <i class="bi bi-person-circle fs-1 text-primary"></i>
+                        </div>
+                        <h2 class="fw-bold">My Account</h2>
+                        <p class="text-muted">Manage your account settings and information</p>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="account-card">
+                                <div class="account-icon">
+                                    <i class="bi bi-info-circle fs-2"></i>
+                                </div>
+                                <h5 class="fw-bold mb-2">Account Details</h5>
+                                <p class="text-muted mb-3">View your personal information and profile</p>
+                                <a class="btn btn-primary w-100" asp-controller="User" asp-action="Details">
+                                    <i class="bi bi-eye me-2"></i>
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="account-card">
+                                <div class="account-icon">
+                                    <i class="bi bi-shield-lock fs-2"></i>
+                                </div>
+                                <h5 class="fw-bold mb-2">Security</h5>
+                                <p class="text-muted mb-3">Update your password and security settings</p>
+                                <a class="btn btn-primary w-100" asp-controller="User" asp-action="ChangeUserPassword">
+                                    <i class="bi bi-key me-2"></i>
+                                    Change Password
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="account-card">
+                                <div class="account-icon">
+                                    <i class="bi bi-bookmark-check fs-2"></i>
+                                </div>
+                                <h5 class="fw-bold mb-2">My Borrowed Books</h5>
+                                <p class="text-muted mb-3">View all books you've borrowed</p>
+                                <a class="btn btn-primary w-100" asp-controller="User" asp-action="ViewImports">
+                                    <i class="bi bi-book me-2"></i>
+                                    View Books
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="account-card">
+                                <div class="account-icon">
+                                    <i class="bi bi-collection fs-2"></i>
+                                </div>
+                                <h5 class="fw-bold mb-2">Browse Library</h5>
+                                <p class="text-muted mb-3">Explore and borrow new books</p>
+                                <a class="btn btn-primary w-100" asp-controller="Book" asp-action="Index">
+                                    <i class="bi bi-search me-2"></i>
+                                    Browse Books
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4 pt-4 border-top">
+                        <a asp-controller="Account" asp-action="Logout" class="btn btn-outline-danger">
+                            <i class="bi bi-box-arrow-right me-2"></i>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div style="text-align: left; margin-bottom: 20px;">
-    <a class="btn btn-primary" asp-controller="User" asp-action="ChangeUserPassword">
-        Change Password
-    </a>
-</div>
+<style>
+    .card {
+        border-radius: 15px;
+    }
+    
+    .icon-wrapper {
+        width: 80px;
+        height: 80px;
+        background: #f0f4ff;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+    }
+    
+    .account-card {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 2rem;
+        text-align: center;
+        height: 100%;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+    
+    .account-card:hover {
+        background: white;
+        border-color: #0d6efd;
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    
+    .account-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-weight: 500;
+        border-radius: 8px;
+    }
+</style>
