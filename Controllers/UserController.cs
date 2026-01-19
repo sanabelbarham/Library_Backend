@@ -1,4 +1,5 @@
-﻿using Library.Models;
+﻿using Library.Data;
+using Library.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,8 +7,8 @@ namespace Library.Controllers
 {
     public class UserController : Controller
     {
-        private readonly LibraryContext _context;
-        public UserController(LibraryContext context) => _context = context;
+        private readonly ApplicationDbContext _context;
+        public UserController(ApplicationDbContext context) => _context = context;
         public IActionResult Index()
         {
             int? userId = HttpContext.Session.GetInt32("UserId");

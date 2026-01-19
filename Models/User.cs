@@ -16,5 +16,8 @@ namespace Library.Models
 
         [Required]
         public string Password { get; set; }
+
+        public List<Book> Books { get; set; } = new List<Book>();
+
     }
 }

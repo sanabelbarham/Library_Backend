@@ -1,4 +1,5 @@
-﻿using Library.Models;
+﻿using Library.Data;
+using Library.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 // Add DbContext
-builder.Services.AddDbContext<LibraryContext>(options =>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add Session
@@ -31,12 +32,6 @@ app.UseRouting();
 app.UseSession();
 app.UseAuthorization();
 
-// Optional: Ensure DB created
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<LibraryContext>();
-    db.Database.EnsureCreated();
-}
 
 // Routes
 app.MapControllerRoute(

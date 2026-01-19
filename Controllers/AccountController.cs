@@ -1,4 +1,5 @@
-﻿using Library.Models;
+﻿using Library.Data;
+using Library.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -7,9 +8,9 @@ namespace Library.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly LibraryContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public AccountController(LibraryContext context)
+        public AccountController(ApplicationDbContext context)
         {
             _context = context;
         }

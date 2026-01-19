@@ -1,4 +1,5 @@
-﻿using Library.Models;
+﻿using Library.Data;
+using Library.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,9 +7,9 @@ namespace Library.Controllers
 {
     public class BookController : Controller
     {
-        private readonly LibraryContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public BookController(LibraryContext context)
+        public BookController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -35,7 +36,6 @@ namespace Library.Controllers
             return View(books);
         }
 
-        // Search by title
         public IActionResult Search(string searchKey)
         {
             var books = _context.Books
@@ -45,7 +45,7 @@ namespace Library.Controllers
             return View("Index", books);
         }
 
-        // Search by author
+ 
         public IActionResult SearchByAuthor(string authorName)
         {
             var books = _context.Books
@@ -54,5 +54,30 @@ namespace Library.Controllers
 
             return View("Index", books);
         }
+
+        public IActionResult Borrow(int id)
+        {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+                return RedirectToAction("Login", "Account");
+
+            var book = _context.Books.FirstOrDefault(b => b.BookId == id);
+
+            if (book == null)
+                return NotFound();
+
+        
+            if (book.UserId != null)
+            {
+                ViewBag.Error = "This book is already borrowed.";
+                return RedirectToAction("Index");
+            }
+
+            book.UserId = userId;
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

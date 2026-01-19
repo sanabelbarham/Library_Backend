@@ -7,17 +7,21 @@
     </a>
 </div>
 
+<div style="text-align: left; margin-bottom: 20px;">
+    <a class="btn btn-primary" asp-controller="Account" asp-action="Logout">
+      Logout
+    </a>
+</div>
+
 <h2>Books List</h2>
 
-
-<!-- Search by Title -->
 <form method="get" asp-controller="Book" asp-action="Search" style="margin-bottom:10px;">
     Search by Title:
     <input type="text" name="searchKey" />
     <button type="submit">Search</button>
 </form>
 
-<!-- Search by Author -->
+
 <form method="get" asp-controller="Book" asp-action="SearchByAuthor" style="margin-bottom:20px;">
     Search by Author:
     <input type="text" name="authorName" />
@@ -30,6 +34,7 @@
             <th>ID</th>
             <th>Title</th>
             <th>Author</th>
+            <th>Borrow</th>
         </tr>
     </thead>
     <tbody>
@@ -41,13 +46,27 @@
                     <td>@b.BookId</td>
                     <td>@b.Title</td>
                     <td>@b.Author</td>
+
+                 
+                    <td>
+                        @if (b.UserId == null)
+                        {
+                            <a asp-action="Borrow" asp-route-id="@b.BookId" class="btn btn-success">
+                                Borrow
+                            </a>
+                        }
+                        else
+                        {
+                            <span class="text-danger">Borrowed</span>
+                        }
+                    </td>
                 </tr>
             }
         }
         else
         {
             <tr>
-                <td colspan="3">No books found</td>
+                <td colspan="4">No books found</td>
             </tr>
         }
     </tbody>

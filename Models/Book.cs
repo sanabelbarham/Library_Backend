@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Library.Models
 {
@@ -14,6 +15,9 @@ namespace Library.Models
         [Required]
 
         public string Author { get; set; }
+        public int ?UserId { get; set; }
+        [ForeignKey("UserId")]
+        public User ?User { get; set; }
 
 
     }
